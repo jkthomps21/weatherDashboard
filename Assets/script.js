@@ -3,6 +3,7 @@ var currentLocation;
 //var citiesInStorage = JSON.parse(localStorage("forecastedCities")) || [];
 //console.log(citiesInStorage);
 
+// Work on displaying current location of user
 // Work on getting local storage on page refresh
 /*function getStorage() {
 }
