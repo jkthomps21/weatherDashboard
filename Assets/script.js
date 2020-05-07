@@ -1,5 +1,14 @@
 var savedCities = [];
 var currentLocation;
+//var citiesInStorage = JSON.parse(localStorage("forecastedCities")) || [];
+//console.log(citiesInStorage);
+
+// Work on getting local storage on page refresh
+/*function getStorage() {
+}
+    
+    
+getStorage();*/
 
 function getCurrent(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=d7415d184e3f8e2108a88729be1f2dea&units=imperial";
@@ -33,8 +42,6 @@ function getCurrent(city) {
         cardBody.append(h3El);
         
         
-        var currdate = moment(response.dt, "X").format("dddd, MMMM Do YYYY, h:mm a");
-        cardBody.append($("<p>").attr("class", "card-text").append($("<small>").attr("class", "text-muted").text("Last updated: " + currdate)));
         // Display the temperature
         cardBody.append($("<p>").attr("class", "card-text").html("Temperature: " + response.main.temp + " &#8457;"));
         // Display the humidity
@@ -93,7 +100,7 @@ function getForecast(city) {
                 var newCard = $("<div>").attr("class", "card text-white bg-primary");
                 newCol.append(newCard);
                 
-                var cardHead = $("<div>").attr("class", "card-header").text(moment(response.list[i].dt, "X").format("MMM Do")).css("font-size", "16px");
+                var cardHead = $("<div>").attr("class", "card-header").text(moment(response.list[i].dt, "X").format("L")).css("font-size", "12px");
                 newCard.append(cardHead);
                 
                 var cardImg = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
@@ -160,7 +167,7 @@ $("#searchBtn").on("click", function () {
     }
 });
 
-$(document).on("click", "#locationBtn", function () {
+$(document).on("click", "#locationBtn", function() {
     clear();
     currentLocation = $(this).text();
     showPrevious();
