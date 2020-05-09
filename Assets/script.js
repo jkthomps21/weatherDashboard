@@ -101,7 +101,7 @@ function getForecast(city) {
                 var newCard = $("<div>").attr("class", "card text-white bg-primary");
                 newCol.append(newCard);
                 
-                var cardHead = $("<div>").attr("class", "card-header").text(moment(response.list[i].dt, "X").format("L")).css("font-size", "12px");
+                var cardHead = $("<div>").attr("class", "card-header").text(moment(response.list[i].dt, "X").format("ddd, MMM Do")).css("font-size", "12px");
                 newCard.append(cardHead);
                 
                 var cardImg = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
