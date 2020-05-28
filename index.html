@@ -2,56 +2,104 @@
 <html lang="en-us">
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+    <link rel="stylesheet" href="Assets/CSS/weather-icons.min.css" />
+    <link rel="stylesheet" href="Assets/CSS/style.css" />
+    <script src="https://kit.fontawesome.com/616f60f3ca.js"></script>
     
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> 
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="Assets/style.css" rel="stylesheet">
-
-    <title>Weather Dashboard</title>
+    <title>Weather Application</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark justify-content-center">
-        <h1 class="textDec">Weather Dashboard</h1>
-    </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 searchBox ">
-                <h5 class="text-dark">Search for a City:</h5>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="searchInput" type="search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="searchBtn" type="submit">
-                            <i class="material-icons">search</i>
-                        </button>
+    <div class="container">
+
+        <header class="jumbotron">           
+            <h1 class="display-4 text-center text-white">Weather Dashboard</h1>
+            <p class="lead text-center text-light" id="header-info"></p>
+        </header>
+
+        <main class="card mb-4">
+            <div class="row no-gutters">
+                <div class="col-lg bg-light">
+                    <div class="card-body">
+                        <form novalidate>
+                            <div class="form">
+                                <label for="city-input">Search for a City:</label>
+                            </div>
+                            <div class="form-group form-row">
+                                <div class="col-sm">
+                                    <input type="text" class="form-control col" id="city-input">
+                                    <div class="invalid-feedback">Please enter a valid location</div>
+                                </div>
+                                <div class="col-sm-3 col-xl-2 mt-2 mt-sm-0">
+                                    <button class="btn btn-primary col" id="search-city">
+                                        <i class="fas fa-search"></i><span id="search-text"> Search</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="list-group" id="city-list">
+                        </div>
                     </div>
                 </div>
-                <div class="mt-4" id="prevSearches">
+                <div class="col-lg-9 col-xl-8">
+                    <div class="card-body">
+                        <h3 class="card-title" id="city-name">City, Location </h3>
+                        <hr>
+                        <div class="row no-gutters">
+                            <div class="col-sm text-center text-md-left">
+                                <div class="mb-3 mb-md-0">
+                                    <span class="display-1 temp" id="temperature">--°</span>
+                                    <span class="display-4 big-icon"><i id="i-weather-current"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="d-flex align-items-center justify-content-around h6 mb-0">
+                                    <div class="d-flex flex-row unsquish">
+                                        <i class="wi wi-raindrop text-muted pr-md-2"></i><div class="label pr-md-2"> HUMIDITY</div>
+                                    </div>
+                                    <div class="d-flex flex-row unsquish">
+                                        <i class="wi wi-strong-wind text-muted pr-md-2"></i><div class="label pr-md-2"> WIND SPEED</div>
+                                    </div>
+                                    <div class="d-flex flex-row unsquish">
+                                        <i class="wi wi-day-sunny text-muted pr-md-2"></i><div class="label"> UV INDEX</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row text-center justify-content-around display-4">
+                                        <p id="humidity"></p>
+                                        <p id="wind-speed"></p>
+                                        <p id="uv-index"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="mb-3">5 Day Forecast</h3>
+                        <div class="row row-cols-5 no-gutters lead justify-content-around">
+                            <div class="col-md-2 text-center text-white forecast fcast-1">
+                            </div>
+                            <div class="col-md-2 text-center text-white forecast fcast-2">
+                            </div>
+                            <div class="col-md-2 text-center text-white forecast fcast-3">
+                            </div>
+                            <div class="col-md-2 text-center text-white forecast fcast-4">
+                            </div>
+                            <div class="col-md-2 text-center text-white forecast fcast-5">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </main>
 
-            <div class="col-md-9 mt-3">
-                <div class="container" id="innerForecast">
-                </div>
-            </div>
-        </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/geolocator/2.1.5/geolocator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="Assets/script.js"></script>
 </body>
 
